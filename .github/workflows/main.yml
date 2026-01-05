@@ -19,5 +19,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           port: 21
+          ftp-server-uses-pasv: true
+          # This helps bypass office firewall issues:
+          log-level: verbose
           local-dir: ./
           server-dir: /site/wwwroot/
