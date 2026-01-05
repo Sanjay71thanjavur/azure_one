@@ -19,9 +19,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           port: 21
-          # This is the critical setting for ECONNRESET on Azure:
           security: loose
-          # We force a direct transfer to avoid the socket timeout:
           local-dir: ./
           server-dir: /site/wwwroot/
           state-name: .ftp-deploy-sync-state.json
+          log-level: verbose
