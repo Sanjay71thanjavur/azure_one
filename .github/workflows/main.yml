@@ -11,7 +11,7 @@ jobs:
       - name: 📦 Get Code From GitHub
         uses: actions/checkout@v3
 
-      - name: 🚀 Upload to Azure via FTPS
+      - name: 🚀 Sync to Azure
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -19,7 +19,9 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           port: 21
+          # This is the critical setting for ECONNRESET on Azure:
           security: loose
-          log-level: verbose
+          # We force a direct transfer to avoid the socket timeout:
           local-dir: ./
           server-dir: /site/wwwroot/
+          state-name: .ftp-deploy-sync-state.json
